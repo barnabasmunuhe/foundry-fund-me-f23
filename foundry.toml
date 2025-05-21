@@ -1,0 +1,12 @@
+[profile.fork]
+url = "${SEPOLIA_RPC_URL}"
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+remappings = [
+    "@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/",
+]
+ffi = true #means you're allowing foundry to run commands directly on your machine
+            #TRY TO KEEP IT OFF AS LONG AS POSSIBLE
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
