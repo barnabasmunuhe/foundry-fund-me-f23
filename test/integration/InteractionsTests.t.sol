@@ -27,7 +27,7 @@ contract IntegrationTest is Test {
         address funderContract = address(fundFundMe);
         vm.deal(funderContract, SEND_VALUE); // fund the contract
 
-        fundFundMe.fundFundMe(address(fundMe));//contract sends ETH
+        fundFundMe.fundFundMe(address(fundMe)); //contract sends ETH
 
         withdrawFundMe WithdrawContract = new withdrawFundMe();
         WithdrawContract.withdrawfundMe(address(fundMe));

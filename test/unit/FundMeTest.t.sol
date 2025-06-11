@@ -95,7 +95,7 @@ contract FundMeTest is Test {
         // Act
         // uint256 gasStart = gasleft();//1000 //tells you how much gas is left in your tx call
         vm.txGasPrice(GAS_PRICE);
-        vm.prank(fundMe.getOwner());//c: 200
+        vm.prank(fundMe.getOwner()); //c: 200
         fundMe.withdraw(); // should have spend gas?
 
         // uint256 gasEnd = gasleft();//800
@@ -106,10 +106,7 @@ contract FundMeTest is Test {
         uint256 endingOwnerbalance = fundMe.getOwner().balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
         assertEq(endingFundMeBalance, 0);
-        assertEq(
-            startingFundMeBalance + startingOwnerBalance,
-            endingOwnerbalance
-        );
+        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerbalance);
     }
 
     function testwithdrawFromMultipleFunders() public funded {
@@ -133,10 +130,7 @@ contract FundMeTest is Test {
 
         //assert
         assert(address(fundMe).balance == 0);
-        assert(
-            startingFundMeBalance + startingOwnerBalance ==
-                fundMe.getOwner().balance
-        );
+        assert(startingFundMeBalance + startingOwnerBalance == fundMe.getOwner().balance);
     }
 
     function testwithdrawFromMultipleFundersCheaper() public funded {
@@ -160,9 +154,6 @@ contract FundMeTest is Test {
 
         //assert
         assert(address(fundMe).balance == 0);
-        assert(
-            startingFundMeBalance + startingOwnerBalance ==
-                fundMe.getOwner().balance
-        );
+        assert(startingFundMeBalance + startingOwnerBalance == fundMe.getOwner().balance);
     }
 }
