@@ -1,54 +1,37 @@
-name: CI
+name: CI – Foundry Tests
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 
-env:
-  FOUNDRY_PROFILE: ci
-
 jobs:
   check:
-    strategy:
-      fail-fast: true
-
-    name: Foundry project
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
+        with:
+          cache: true       # Speeds up RPC forking tests :contentReference[oaicite:2]{index=2}
 
-      - name: Show Forge version
-        run: |
-          forge --version
+      - name: Show Forge Version
+        run: forge --version
 
-      - name: Run Forge fmt
-        run: |
-          forge fmt --check
-        id: fmt
+      - name: Run Forge Fmt
+        run: forge fmt --check
 
-      - name: Run Forge build
-        run: |
-          forge build --sizes
-        id: build
+      - name: Run Forge Build
+        run: forge build --sizes
 
-      - name: Run Forge tests
-        run: |
-          forge test -vvv
-        id: test
+      - name: Run Forge Tests
+        run: forge test -vvv
 
-      - name: Configure Git for auto-commit
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Commit and push changes
-        run: |
-          git add .
-          git commit -m "chore: auto-commit via CI" || echo "No changes to commit"
-          git push origin main
+      - name: Snapshot Gas Usage
+        run: forge snapshot
