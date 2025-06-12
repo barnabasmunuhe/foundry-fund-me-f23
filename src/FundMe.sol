@@ -1,11 +1,32 @@
+// Layout of Contract:
+// version
+// imports
+// errors
+// interfaces, libraries, contracts
+// Type declarations
+// State variables
+// Events
+// Modifiers
+// Functions
+
+// Layout of Functions:
+// constructor
+// receive function (if exists)
+// fallback function (if exists)
+// external
+// public
+// internal
+// private
+// internal & private view & pure functions
+// external & public view & pure functions
+
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-// Note: The AggregatorV3Interface might be at a different location than what was in the video!
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 import {PriceConverter} from "./PriceConverter.sol";
 
-error FundMe__NotOwner(); //when you name your error use the contract name as a prefix then underscore and then the name of the error
+error FundMe__NotOwner(); //when you name your error use the contract name as a prefix then two underscores and then the name of the error
 
 contract FundMe {
     using PriceConverter for uint256;
@@ -13,7 +34,7 @@ contract FundMe {
     mapping(address => uint256) private s_addressToAmountFunded;
     address[] private s_funders;
 
-    // Could we make this constant?  /* hint: no! We should make it immutable! */
+    // Could we make this constant?  /* no! We should make it immutable! */
     address private immutable i_owner;
     uint256 public constant MINIMUM_USD = 5e18; // 5 dollars
     AggregatorV3Interface private s_priceFeed;
